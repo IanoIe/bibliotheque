@@ -11,7 +11,7 @@
 <body>
     <div class="container my-5">
         <h1>Project Bibliotheque</h1>
-        <a class="btn btn-primary" href="/" role="button"> Add livre </a>
+        <a class="btn btn-primary" href="/bibliotheque/create.php" role="button"> Add livre </a>
         <br>
 
         <table class="table">
@@ -33,8 +33,8 @@
                     <td>categorie de livre</td>
                     <td>quant en stock</td>
                     <td>
-                        <a class="btn btn-primary btn-sm" href="/">Edit</a>
-                        <a class="btn btn-danger btn-sm" href="/">Delete</a>
+                        <a class="btn btn-primary btn-sm" href="/bibliotheque/eddit.php">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="/bibliotheque/delete.php">Delete</a>
                     </td>
                 </tr>
             </tbody>
