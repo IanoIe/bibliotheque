@@ -9,7 +9,7 @@
 <body>
     <div class="container my-5">
         <h1>Project Bibliotheque</h1>
-        <a class="btn btn-primary" href="/bibliotheque/create.php" role="button"> Add livre </a>
+        <a class="btn btn-primary" href="create.php" role="button"> Add livre </a>
         <br>
         <table class="table">
             <thead>
@@ -23,17 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>tire de livre</td>
-                    <td>auteur de livre</td>
-                    <td>categorie de livre</td>
-                    <td>quant en stock</td>
-                    <td>
-                        <a class="btn btn-primary btn-sm" href="/bibliotheque/eddit.php">Edit</a>
-                        <a class="btn btn-danger btn-sm" href="/bibliotheque/delete.php">Delete</a>
-                    </td>
-                </tr>
+                
             </tbody>
         </table>
        <!-- Connexion a base de donnée -->
@@ -48,6 +38,25 @@
                 echo "Connexion réussie <br>";
              } catch (PDOException $e) {
                 echo "Erreur de connexion : <br>". $e->getMessage();
+             }
+
+             $sql = "SELECT * FROM livres";
+             $stmt = $pdo->query($sql);
+             // lire les données de chaque ligne en ligne
+             while ($ligne = $stmt->fetch()) {
+                echo "
+                <tr>
+                    <td>$ligne[id]</td>
+                    <td>$ligne[titre]</td>
+                    <td>$ligne[auteur]</td>
+                    <td>$ligne[categorie]</td>
+                    <td>$ligne[stock]</td>
+                    <td>
+                        <a class='btn btn-primary btn-sm' href='eddit.php?id=$ligne[id]'>Edit</a>
+                        <a class='btn btn-danger btn-sm' href='delete.php?id=$ligne[id]'>Delete<br></a>
+                    </td>
+                </tr>
+                ";
              }
         ?>
 
