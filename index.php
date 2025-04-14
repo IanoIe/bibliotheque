@@ -2,18 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylsheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
-    <title>Project Bibliotheque</title>
-
-
-    
+    <title>Project Bibliotheque</title>    
 </head>
 <body>
     <div class="container my-5">
         <h1>Project Bibliotheque</h1>
         <a class="btn btn-primary" href="/bibliotheque/create.php" role="button"> Add livre </a>
         <br>
-
         <table class="table">
             <thead>
                 <tr>
@@ -39,6 +36,21 @@
                 </tr>
             </tbody>
         </table>
+       <!-- Connexion a base de donnée -->
+        <?php
+             $host = 'localhost';
+             $dbname = 'bibliotheque';
+             $user = 'root';
+             $pass = 'Mamae13';
+        
+             try {
+                $pdo = new PDO("mysql:host=$host;dbname=$dbname;chartset=utf8", $user, $pass);
+                echo "Connexion réussie <br>";
+             } catch (PDOException $e) {
+                echo "Erreur de connexion : <br>". $e->getMessage();
+             }
+        ?>
+
     </div>
 </body>
 </html>
