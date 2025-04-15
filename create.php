@@ -19,27 +19,28 @@
    $errorMessage = "";
    $successMessage = "";
 
-   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+   if($_SERVER["REQUEST_METHOD"] == "POST"){
        $titre = $_POST["titre"];
        $auteur = $_POST["auteur"];
        $categorie = $_POST["categorie"];
        $stock = $_POST["stock"];
 
-       do  {
-           if (empty($titre) || empty($auteur) || empty($categorie) || empty($stock)) {
-               $errorMessage = "Tous les champs sont obligatoires!";
-               break;
-            }
+       do {
+
+          if (empty($titre) || empty($auteur) || empty($categorie) || empty($stock)){
+           $errorMessage = "Tous les champs sont obligatoires";
+           break;
+    }
             // Ajouter des nouvelles livres dans base de données
-            $sql = "INSERT INTO livres (titre, auteur, categorie, stock) VALUES ('$titre', '$auteur', $categorie', '$stock)";
+            $sql = "INSERT INTO livres (titre, auteur, categorie, stock) VALUES ('$titre', '$auteur', $categorie', '$stock')";
             $stmt = $pdo->query($sql);
 
             if (!$stmt) {
-                $errorMessage = "Query invalid: ";
+                $errorMessage = "Query invalid: ".$pod->error_log;
                 break;
             }
 
-            $livre = "";
+            $titre = "";
             $auteur = "";
             $categorie = "";
             $stock = "";
@@ -58,11 +59,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <title> Bibliotheque </title>
 </head>
 
@@ -110,7 +109,7 @@
                 <div class='alert alert-warning alert-dismissible fade show' rol='alert'>
                      <strong>$errorMessage</strong>
                      <button type='button' class='btn-close' data-bs-dismiss='alert' arial-label='Close'></button>
-                ";
+                </div>";
             }
         ?>
 
@@ -118,28 +117,41 @@
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Titre de Livre</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="titre" value=" <?php echo $titre ?>">
+                    <input type="text" class="form-control" name="titre" value=" <?php echo $titre; ?>">
                 </div>
             </div>
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Auteur de Livre</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="auteur" value=" <?php echo $auteur ?>">
+                    <input type="text" class="form-control" name="auteur" value=" <?php echo $auteur; ?>">
                 </div>
             </div>
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Categorie</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="categorie" value=" <?php echo $categorie ?>">
+                    <input type="text" class="form-control" name="categorie" value=" <?php echo $categorie; ?>">
                 </div>
             </div>
-            
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Stock</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="stock" value=" <?php echo $stock ?>">
+                    <input type="text" class="form-control" name="stock" value=" <?php echo $stock; ?>">
                 </div>
             </div>
+
+            <?php
+                if(!empty($successMessage)) {
+                    echo "
+                    <div class='dow mb-3'>
+                        <div class='offset-sm-3 col-sm-6'>
+                            <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                <strrong>$successMessage</strong>
+                                <button type='button' class='btn-close' data-bs-dismiss='alert' arial-label='Close'></button>
+                            </div>
+                        </div>
+                    </div>";          
+                }
+            ?>
 
             <div class="row mb-3">
                 <div class="offset-sm-3 col-sm-3 d-grid">

@@ -39,11 +39,40 @@
             header("location: index.php");
             exit;
         }
+
+        $titre = $ligne["titre"];
+        $auteur = $ligne["auteur"];
+        $categorie = $ligne["categorie"];
+        $stock = $ligne["stock"];
+
     } else {
         // POST method: mettre à jour la données des livres
-        
-    }
+        $id = $_POST["id"];
+        $titre = $_POST["titre"];
+        $auteur = $_POST["auteur"];
+        $categorie = $_POST["categorie"];
+        $stock = $_POST["stock"];
 
+        do {
+            if (empty($id) || empty($titre) || empty($auteur) || empty($categorie) || empty($stock)){
+                $errorMessage = "Tous les champs sont obligatoires";
+                break;
+            }
+
+            $sql = "UPDATE livres SET titre = '$titre', auteur = '$auteur', categorie = '$categorie', stock = '$stock' WHERE id = $id";
+
+            $stmt = $pdo->query($sql);
+
+            if (!$stmt) {
+                $errorMessage = "Query invalide: " .$pod->error_log;
+                break;
+            }
+
+            $successMessage = "Livre mis à jour correctement";
+            header("location: /bibliotheque/index.php");
+
+        } while (false);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +88,41 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
     <title> Edit </title>
 </head>
+
+<style>
+        body {
+        width: 100%;
+    }
+
+    header {
+        width: 100%;
+        height: 100px;
+        background-color:rgb(31, 92, 62);
+    }
+    h2 {
+        flex-direction: column;
+        margin-block-start: auto;
+        text-align: center;
+        padding: 25px;
+        margin-bottom: 20px;
+        font-size: 50px;
+        color: #00cc66;
+    }
+    footer {
+        width: 100%;
+        height: 50px;
+        background-color:rgb(31, 92, 62);
+        text-align: center;
+        color: white;
+        margin-top: 100px;
+        padding-top: 10px;
+    
+    }
+</style>
 <body>
+    <header>
+
+    </header>
     <div class="container my-5">
         <h2>Edit une Livre</h2>
 
@@ -69,46 +132,51 @@
                 <div class='alert alert-warning alert-dismissible fade show' rol='alert'>
                      <strong>$errorMessage</strong>
                      <button type='button' class='btn-close' data-bs-dismiss='alert' arial-label='Close'></button>
+                </div>
                 ";
             }
-
         ?>
 
         <form method="post">
-            <input type="hidden" value="<?php echo $id; ?>">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Titre de Livre</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="titre" value=" <?php echo $titre ?>">
+                    <input type="text" class="form-control" name="titre" value=" <?php echo $titre; ?>">
                 </div>
             </div>
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Auteur de Livre</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="auteur" value=" <?php echo $auteur ?>">
+                    <input type="text" class="form-control" name="auteur" value=" <?php echo $auteur; ?>">
                 </div>
             </div>
             <div class="row mb-3">
-                <label class="col-sm-6 col-form-label">Categorie</label>
+                <label class="col-sm-3 col-form-label">Categorie</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="categorie" value=" <?php echo $categorie ?>">
+                    <input type="text" class="form-control" name="categorie" value=" <?php echo $categorie; ?>">
                 </div>
             </div>
             <div class="row mb-3">
-                <label class="col-sm-6 col-form-label">Stock</label>
+                <label class="col-sm-3 col-form-label">Stock</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="stock" value=" <?php echo $stock ?>">
+                    <input type="text" class="form-control" name="stock" value=" <?php echo $stock; ?>">
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="offset-sm-3 col-sm-3 d-grid">
-                    <button type="submit" class="btn btn-primay">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <div class="col-sm-3 d-grid">
-                    <a class="btn btn-outline-primary" href="index.php" role="button">Cancel</a>
+                    <a class="btn btn-outline-primary" href="/bibliotheque/index.php" role="button">Cancel</a>
                 </div>
+            </div>
         </form>
     </div>
+
+    <footer>
+        <p> &copy; 2025 AC Marvel - Tous droits réservés </p>
+    </footer>
 </body>
 </html>

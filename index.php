@@ -13,7 +13,7 @@
 </head>
 <style>
     table, th, td {
-     border:1px solid black;
+     border:1px solid black; 
 }
 
 header {
@@ -36,7 +36,7 @@ footer{
 
     </header>
     <div class="container my-5">
-        <h1 style="text-align: center;">Project Bibliotheque</h1>
+        <h1 style="text-align: center; color:rgb(101, 191, 10)">Project Bibliotheque</h1>
         <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Book</a>
         <br>
         <table class="table">
@@ -51,7 +51,7 @@ footer{
                 </tr>
             </thead>
             <tbody>
-                 <!-- Connexion a base de donnée -->
+        <!-- Connexion a base de donnée -->
         <?php
              $host = 'localhost';
              $dbname = 'bibliotheque';
@@ -64,7 +64,6 @@ footer{
              } catch (PDOException $e) {
                 echo "Erreur de connexion : <br>". $e->getMessage();
              }
-
              $sql = "SELECT * FROM livres";
              $stmt = $pdo->query($sql);
              // lire les données de chaque ligne en ligne
@@ -76,7 +75,7 @@ footer{
                          <td>$ligne[categorie]</td>
                          <td>$ligne[stock]</td>
                          <td>
-                             <a class='btn btn-primary btn-sm' href='eddit.php?id=$ligne[id]'>Edit</a>
+                             <a class='btn btn-primary btn-sm' href='edit.php?id=$ligne[id]'>Edit</a>
                              <a class='btn btn-danger btn-sm' href='delete.php?id=$ligne[id]'>Delete<br></a>
                          </td>
                      </tr>";
