@@ -18,6 +18,6 @@
            $stmt->query($sql);
     }
 
-    header("location: /bibliotheque/index.php");
+    header("location: index.php");
     exit;
 ?>

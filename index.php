@@ -8,7 +8,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>    
-
     <title>Project Bibliotheque</title>    
 </head>
 <style>
@@ -36,8 +35,8 @@ footer{
 
     </header>
     <div class="container my-5">
-        <h1 style="text-align: center; color:rgb(101, 191, 10)">Project Bibliotheque</h1>
-        <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Book</a>
+        <h1 style="text-align: center; color:rgb(101, 191, 10)">Bibliotheque</h1>
+        <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Ajouter Un Livre</a>
         <br>
         <table class="table">
             <thead style="background-color: #C0C0C0; border: 3px solid black;">
@@ -64,8 +63,13 @@ footer{
              } catch (PDOException $e) {
                 echo "Erreur de connexion : <br>". $e->getMessage();
              }
+
              $sql = "SELECT * FROM livres";
              $stmt = $pdo->query($sql);
+
+             if (!$stmt) {
+                die("Invalid query: ");
+             }
              // lire les données de chaque ligne en ligne
              while ($ligne = $stmt->fetch()) {
                 echo "<tr>

@@ -1,10 +1,9 @@
 <?php
-
+    // Creer Connexion
    $host = 'localhost';
    $dbname = 'bibliotheque';
    $user = 'root';
    $pass = 'Mamae13';
-
    try {
        $pdo = new PDO("mysql:host=$host;dbname=$dbname;chartset=utf8", $user, $pass);
        echo "Connexion réussie <br>";
@@ -69,7 +68,7 @@
             }
 
             $successMessage = "Livre mis à jour correctement";
-            header("location: /bibliotheque/index.php");
+            header("location: index.php");
 
         } while (false);
     }
@@ -81,11 +80,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <title> Edit </title>
 </head>
 
@@ -125,15 +122,13 @@
     </header>
     <div class="container my-5">
         <h2>Edit une Livre</h2>
-
         <?php
             if (!empty($errorMessage)) {
                 echo "
                 <div class='alert alert-warning alert-dismissible fade show' rol='alert'>
                      <strong>$errorMessage</strong>
                      <button type='button' class='btn-close' data-bs-dismiss='alert' arial-label='Close'></button>
-                </div>
-                ";
+                </div>";
             }
         ?>
 
@@ -169,7 +164,7 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <div class="col-sm-3 d-grid">
-                    <a class="btn btn-outline-primary" href="/bibliotheque/index.php" role="button">Cancel</a>
+                    <a class="btn btn-outline-primary" href="/bibliotheque" role="button">Cancel</a>
                 </div>
             </div>
         </form>
