@@ -1,16 +1,7 @@
 <?php
-   // Creer Connexion
-   $host = 'localhost';
-   $dbname = 'bibliotheque';
-   $user = 'root';
-   $pass = 'Mamae13';
-   try {
-       $pdo = new PDO("mysql:host=$host;dbname=$dbname;chartset=utf8", $user, $pass);
-       echo "Connexion réussie <br>";
-    } catch (PDOException $e) {
-       echo "Erreur de connexion : <br>". $e->getMessage();
-    }
-
+   
+   include("connect.php");
+  
    $titre = "";
    $auteur = "";
    $categorie = "";
@@ -20,39 +11,39 @@
    $successMessage = "";
    
 
-   if($_SERVER['REQUEST_METHOD'] == 'POST'){
-       $titre = $_POST["titre"];
-       $auteur = $_POST["auteur"];
-       $categorie = $_POST["categorie"];
-       $stock = $_POST["stock"];
-       
-       echo "<pre>"; print_r($_POST); echo "</pre>"; exit;
-       do {
-          if ( empty($titre) || empty($auteur) || empty($categorie) || empty($stock)){
-           $errorMessage = "Tous les champs sont obligatoires";
-           break;
-          }
-            // Ajouter des nouvelles livres dans base de données
-            $sql = "INSERT INTO livres (titre, auteur, categorie, stock) VALUES ('$titre', '$auteur', '$categorie', '$stock')";
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $titre = $_POST['titre'];
+        $auteur = $_POST['auteur'];
+        $categorie = $_POST['categorie'];
+        $stock = $_POST['stock'];
 
-            $stmt = $pdo->query($sql);
-            if (!$stmt) {
-                $errorMessage = "Query invalid: ".$pod->error();
-                break;
+       // Check if fields are not empty
+       if (empty($titre) || empty($auteur) || empty($categorie) || empty($stock)) {
+          $errorMessage = "All fields are required!";
+        } else {
+            try {
+                // Prepare the SQL query to insert the database
+                $sql = "INSERT INTO livres (titre, auteur, categorie, stock) VALUES (:titre, :auteur, :categorie, :stock)";
+                $stmt = $pdo->prepare($sql);
+
+                // Associate the parameters
+                $stmt->bindParam(':titre', $titre);
+                $stmt->bindParam(':auteur', $auteur);
+                $stmt->bindParam(':categorie', $categorie);
+                $stmt->bindParam(':stock', $stock, PDO::PARAM_INT);
+
+                // Run the query
+                $stmt->execute();
+
+                echo $successMessage = "Book added successfully!";
+            } catch (PDOException $e) {
+                echo "Error adding book: " . $e->getMessage();
             }
-
-            $titre = "";
-            $auteur = "";
-            $categorie = "";
-            $stock = "";
-            
-            $successMessage = "Nouvelle livre est bien ajoutée!";
-
-            header("location: /index.php");
-        } while (false);
-        
+        }
     }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,6 +53,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <title> Bibliotheque </title>
 </head>
@@ -105,12 +104,12 @@
             if (!empty($errorMessage)) {
                 echo "
                 <div class='alert alert-warning alert-dismissible fade show' rol='alert'>
-                     <strong>$errorMessage</strong>
-                     <button type='button' class='btn-close' data-bs-dismiss='alert' arial-label='Close'></button>
+                     <strong>$$errorMessage</strong>
+                     <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
                 </div>";
             }
         ?>
-
+ 
         <form method="post">
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Titre de Livre</label>

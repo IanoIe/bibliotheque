@@ -1,11 +1,9 @@
 <?php
+
+   include("connect.php");    
+
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
-
-        $host = 'localhost';
-        $dbname = 'bibliotheque';
-        $user = 'root';
-        $pass = 'Mamae13';
         
         try {
             $stmt = new PDO("mysql:host=$host;dbname=$dbname;chartset=utf8", $user, $pass);
@@ -18,6 +16,6 @@
            $stmt->query($sql);
     }
 
-    header("location: index.php");
+    header("location: /bibliotheque");
     exit;
 ?>

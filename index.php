@@ -1,3 +1,7 @@
+<?php
+   include("connect.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,20 +54,7 @@ footer{
                 </tr>
             </thead>
             <tbody>
-        <!-- Connexion a base de donnée -->
         <?php
-             $host = 'localhost';
-             $dbname = 'bibliotheque';
-             $user = 'root';
-             $pass = 'Mamae13';
-        
-             try {
-                $pdo = new PDO("mysql:host=$host;dbname=$dbname;chartset=utf8", $user, $pass);
-                echo "Connexion réussie <br>";
-             } catch (PDOException $e) {
-                echo "Erreur de connexion : <br>". $e->getMessage();
-             }
-
              $sql = "SELECT * FROM livres";
              $stmt = $pdo->query($sql);
 
@@ -96,7 +87,9 @@ footer{
         <p> &copy; 2025 AC Marvel - Tous droits réservés </p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script>
+
+    </script>
 
 </body>
 </html>
