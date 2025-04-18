@@ -1,5 +1,6 @@
 <?php
    include("connect.php");
+   include("tampletes/header.php");
 ?>
 
 <!DOCTYPE html>
@@ -14,30 +15,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>    
     <title>Project Bibliotheque</title>    
 </head>
-<style>
-    table, th, td {
-     border:1px solid black; 
-}
-
-header {
-    width: 100%;
-    height: 100px;
-    background-color:rgb(31, 92, 62);
-}
-footer{
-    width: 100%;
-    height: 50px;
-    background-color:rgb(31, 92, 62);
-    text-align: center;
-    color: white;
-    margin-top: 100px;
-    padding-top: 10px;
-}
-</style>
 <body>
-    <header>
-
-    </header>
+    
     <div class="container my-5">
         <h1 style="text-align: center; color:rgb(101, 191, 10)">Bibliotheque</h1>
         <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Ajouter Un Livre</a>
@@ -54,42 +33,34 @@ footer{
                 </tr>
             </thead>
             <tbody>
-        <?php
-             $sql = "SELECT * FROM livres";
-             $stmt = $pdo->query($sql);
+                <?php
+                     $sql = "SELECT * FROM livres";
+                     $stmt = $pdo->query($sql);
 
-             if (!$stmt) {
-                die("Invalid query: ");
-             }
-             // lire les données de chaque ligne en ligne
-             while ($ligne = $stmt->fetch()) {
-                echo "<tr>
-                         <td>$ligne[id]</td>
-                         <td>$ligne[titre]</td>
-                         <td>$ligne[auteur]</td>
-                         <td>$ligne[categorie]</td>
-                         <td>$ligne[stock]</td>
-                         <td>
-                             <a class='btn btn-primary btn-sm' href='edit.php?id=$ligne[id]'>Edit</a>
-                             <a class='btn btn-danger btn-sm' href='delete.php?id=$ligne[id]'>Delete<br></a>
-                         </td>
-                     </tr>";
-             }
-        ?>
-                
+                     if (!$stmt) {
+                        die("Invalid query: ");
+                     }
+                     // lire les données de chaque ligne en ligne
+                     while ($ligne = $stmt->fetch()) {
+                          echo"<tr>
+                                  <td>$ligne[id]</td>
+                                  <td>$ligne[titre]</td>
+                                  <td>$ligne[auteur]</td>
+                                  <td>$ligne[categorie]</td>
+                                  <td>$ligne[stock]</td>
+                                  <td>
+                                      <a class='btn btn-primary btn-sm' href='edit.php?id=$ligne[id]'>Edit</a>
+                                      <a class='btn btn-danger btn-sm' href='delete.php?id=$ligne[id]'>Delete<br></a>
+                                  </td>
+                               </tr>";
+                    }
+                ?>     
             </tbody>
         </table>
-      
-
+        <a href="adherents.php"><button type="button" class="btn btn-primary btn-lg">looks at adherents</button></a>
     </div>
-
-    <footer>
-        <p> &copy; 2025 AC Marvel - Tous droits réservés </p>
-    </footer>
-
-    <script>
-
-    </script>
-
+<?php
+    include("tampletes/footer.php")
+?>
 </body>
 </html>

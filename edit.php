@@ -1,6 +1,7 @@
 <?php
     
     include("connect.php");
+    include("tampletes/header.php");
 
     $id = "";
     $titre = "";
@@ -53,7 +54,7 @@
             $stmt = $pdo->query($sql);
 
             if (!$stmt) {
-                $errorMessage = "Query invalide: " .$pod->error_log;
+                $errorMessage = "Query invalide: " .$pod->error;
                 break;
             }
 
@@ -77,39 +78,11 @@
 </head>
 
 <style>
-        body {
-        width: 100%;
-    }
 
-    header {
-        width: 100%;
-        height: 100px;
-        background-color:rgb(31, 92, 62);
-    }
-    h2 {
-        flex-direction: column;
-        margin-block-start: auto;
-        text-align: center;
-        padding: 25px;
-        margin-bottom: 20px;
-        font-size: 50px;
-        color: #00cc66;
-    }
-    footer {
-        width: 100%;
-        height: 50px;
-        background-color:rgb(31, 92, 62);
-        text-align: center;
-        color: white;
-        margin-top: 100px;
-        padding-top: 10px;
+ 
     
-    }
 </style>
 <body>
-    <header>
-
-    </header>
     <div class="container my-5">
         <h2>Edit une Livre</h2>
         <?php
@@ -160,8 +133,8 @@
         </form>
     </div>
 
-    <footer>
-        <p> &copy; 2025 AC Marvel - Tous droits réservés </p>
-    </footer>
+<?php
+    include("tampletes/footer.php")
+?>
 </body>
 </html>
